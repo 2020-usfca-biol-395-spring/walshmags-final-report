@@ -1,6 +1,6 @@
 ---
 title: "Final Report"
-author: "Don Francisco"
+author: "Maggie Walsh"
 date: "February 10, 2020"
 bibliography: references.bib
 csl: ecology.csl
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-Delete this placeholder text, and replace it with your introduction text.
+Toxic contamination of the air, especially in urban areas, has been a subject of public concern and scientific study for decades. The Clean Air Act Ammendments of 1990 introduced 187 toxic pollutants called hazardous air pollutants (HAPs).These HAPs are released from both natural and anthropogenic sources, and are classified distinctly from criteria pollutants like ground-level ozone, carbon monoxide, and lead. Although HAPs are usually released from the same sources as critera pollutants [@strum2016national] they are distinct because of their link to cancer and other serious health problems. Major anthropogenic sources of HAPs includes transportation (mobile), industry and power production (point), and smaller, local sources such as dry cleaners (area) [@strum2016national]. Health risks from mobile sources of HAPs has become a great concern, especially in expanding cities where workers commute by car in huge numbers [@mayer1999air]. HAPs released from mobile sources alone have been shown to lead to birth defects such as low birth weight of babies [@wilhelm2012traffic]. There have been arguments that the work of the EPA to enforce the Clean Air Act focuses too much on point sources, when a large volume of HAPs come from area and mobile sources. [@axelrad1999assessment; @strum2016national] The city of San Francisco is no exception to this. The
 
 # Methods
 
