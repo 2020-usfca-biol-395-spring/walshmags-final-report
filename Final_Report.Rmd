@@ -14,17 +14,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-Toxic contamination of the air, especially in urban areas, has been a subject of public concern and scientific study for decades. The Clean Air Act Amendments of 1990 introduced 187 toxic pollutants called hazardous air pollutants (HAPs)[@senate1990cleanair].These HAPs are released from both natural and anthropogenic sources, and are classified distinctly from criteria pollutants like ground-level ozone, carbon monoxide, and lead[@strum2016national]. Although HAPs are usually released from the same sources as criteria pollutants they are distinct because of their link to cancer and other serious health problems[@strum2016national]. 
 
-Major anthropogenic sources of HAPs includes transportation (mobile), industry and power production (point), and smaller, local sources such as dry cleaners (area) [@strum2016national]. Health risks from mobile sources of HAPs has become a great concern, especially in expanding cities where workers commute by car in huge numbers [@mayer1999air]. HAPs released from mobile sources alone have been shown to lead to birth defects such as low birth weight of babies [@wilhelm2012traffic]. There have been arguments that the work of the EPA to enforce the Clean Air Act focuses too much on point sources, when a large volume of HAPs come from area and mobile sources [@axelrad1999assessment; @strum2016national]. 
-
-This observation is of particular importance to the inhabitants of the city of San Francisco. San Francisco has a relatively small industrial zone compared to a multitude of mobile sources of hazardous air pollution combined with smaller area sources. This suggests a greater need to focus on mobile and area sources in research. Although nationwide studies are necessary to evaluate general trends, there is an additional need for nuanced analysis of different areas.
-
-Analyzing the sources of air pollution urban populations are actually being exposed to has immense implications for the environmental justice movement. Historically, environmental justice too has centered around the pollution emission from stationary sources such as hazardous waste dumps or large factories [@mohai2009environmental]. Recognizing major sources of pollution often leads to discovery of how it disproportionately effects racial/ethnic minorities and members of a lower socioeconomic class. Knowledge of negative health effects from pollution can make these communities better prepared to resist such oppression [@wier2009health].
-
-The goal of this field study was to assess the presence of various HAPs in the air in different neighborhoods in the city of San Francisco, and analyze how the relative toxic profiles compare, in light of different polluting factors present in that area. The question that I asked was: among the sources of air pollution in the city of San Francisco, what are the sources most impactful to health in terms of emission of hazardous air pollutants? The best guess would be mobile sources, namely cars, at least in areas with major freeways that get a higher volume of traffic. I also hypothesized that construction sites are a major emitter, since they utilize fuel burning machinery and work with hazardous materials, often times disturbing land and dislodging any hazardous pollution from the ground into the air. A large population will elicit large amounts of mobile source pollution as well as area source pollution. Residential heating systems are examples of area sources of pollution that will add up quickly. I thought the more densely populated parts of San Francisco will see large amounts of area source pollution as well.
-
-To test this hypothesis, I used 
 
 # Methods
 
@@ -55,6 +45,65 @@ library("dplyr")
 library("tidyr")
 library("ggplot2")
 library("readr")
+```
+
+```{r read-in-data}
+#https://data.chhs.ca.gov
+asthma_ed_data <- read_csv(
+  "data/raw_data/asthma-emergency-department-visit-rates-by-county.csv")
+#https://data.ca.gov/dataset/calenviroscreen-3-0-results
+enviroscreen_data <- read_csv(
+  "data/raw_data/calenviroscreen-3.0-results-june-2018-update.csv")
+```
+
+```{r organize data}
+#Look at relationship between asthma rates and traffic density
+enviroscreen_data%>%
+  group_by(`California County`) %>%
+  summarize(mean_traffic_density = mean(Traffic, na.rm = TRUE),
+            mean_asthma_rate = mean(Asthma, na.rm = TRUE) )%>%
+  ggplot(aes(x = mean_traffic_density, 
+             y = mean_asthma_rate)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+```{r organize-into-plot}
+#goal is to compare asthma related emergency department visits to mean PM
+#2.5 concentration
+#Im making a plot to compare the two, using enviroscreed data from 2012-2014
+enviroscreen_data %>%
+  group_by(`California County`) %>%
+  summarize(sum_pop = sum(`Total Population`),
+            mean_pm25 = mean(PM2.5, na.rm = TRUE),
+            mean_asthma = mean(Asthma, na.rm = TRUE)) %>%
+  ggplot(aes(x = mean_pm25, 
+             y = mean_asthma, 
+             size = sum_pop))+
+  geom_point()+
+  ggtitle("Relationship Between PM2.5 Concentration", 
+          "and Asthma in California Counties")+
+  labs(x = "Mean PM2.5 Concentration",
+       y = "Age Adjusted Rate of ED Visits Due to Asthma")+
+  geom_smooth(method = lm) +
+  scale_size_continuous(name = "County Population Size")
+
+  
+```
+```{r statistical-analysis-of-pm25-and-asthma}
+#im going to see if there is a significant relationship between PM2.5 
+#concentration and rate of asthma related ED visits
+
+summarized_county_data <- enviroscreen_data %>%
+  group_by(`California County`) %>%
+  summarize(sum_pop = sum(`Total Population`),
+            mean_pm25 = mean(PM2.5, na.rm = TRUE),
+            mean_asthma = mean(Asthma, na.rm = TRUE))
+
+summary(lm(mean_asthma ~ mean_pm25, data = summarized_county_data)) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 3)
+        
 ```
 
 # Discussion
