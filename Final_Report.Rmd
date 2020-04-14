@@ -45,33 +45,65 @@ library("dplyr")
 library("tidyr")
 library("ggplot2")
 library("readr")
+library("tidycensus")
+library("ggmap")
+
+#tidycensus API key
+census_api_key("f26cc4781be4aec1551e0b17e1f052214e3f5256")
+
 ```
 
 ```{r read-in-data}
-#https://data.chhs.ca.gov
-asthma_ed_data <- read_csv(
-  "data/raw_data/asthma-emergency-department-visit-rates-by-county.csv")
 #https://data.ca.gov/dataset/calenviroscreen-3-0-results
 enviroscreen_data <- read_csv(
   "data/raw_data/calenviroscreen-3.0-results-june-2018-update.csv")
+#https://arb.ca.gov/emfac/2014
+marin_county_traffic_data <- read_csv(
+  "data/raw_data/marin_county_traffic_data.csv")
+kings_county_traffic_data <- read_csv(
+  "data/raw_data/kings_county_traffic_data.csv")
 ```
+
 
 ```{r organize data}
 #Look at relationship between asthma rates and traffic density
 enviroscreen_data%>%
   group_by(`California County`) %>%
-  summarize(mean_traffic_density = mean(Traffic, na.rm = TRUE),
-            mean_asthma_rate = mean(Asthma, na.rm = TRUE) )%>%
-  ggplot(aes(x = mean_traffic_density, 
-             y = mean_asthma_rate)) +
+  summarize(mean_pollution = mean(`Pollution Burden Score`, na.rm = TRUE),
+            mean_asthma_rate = mean(Asthma, na.rm = TRUE), 
+            sum_population = sum(`Total Population`))%>%
+  ggplot(aes(x = mean_pollution, 
+             y = mean_asthma_rate, 
+             size = sum_population)) +
   geom_point() +
-  geom_smooth(method = lm)
+  ggtitle("Relatioship Between Pollution Burden and Asthma Related ED Visits", 
+         "In California Counties") +
+  labs(x = 
+         "Mean Pollution Burden Score given to California Census Tracts (By County)", 
+       y = "Mean Rate (per 10,000) of ED Visits Due to Asthma") +
+  geom_smooth(method = lm) 
+```
+
+```{r statisitcal-analysis-of-pollution-plot}
+#Im going to figure out whether this relationship is statistically significant
+#linear regression fit for pollution burden score and asthma
+summarized_pollution_data <- enviroscreen_data %>%
+    group_by(`California County`) %>%
+  summarize(sum_population = sum(`Total Population`), 
+            mean_pollution = mean(`Pollution Burden Score`, na.rm = TRUE),
+            mean_asthma_rate = mean(Asthma, na.rm = TRUE))
+            
+#statistical test
+summary(lm(mean_asthma_rate ~ mean_pollution, 
+           data = summarized_pollution_data)) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 3)  
 ```
 
 ```{r organize-into-plot}
 #goal is to compare asthma related emergency department visits to mean PM
 #2.5 concentration
-#Im making a plot to compare the two, using enviroscreed data from 2012-2014
+#Im making a plot to compare the two, using enviroscreen data from 2012-2014
 enviroscreen_data %>%
   group_by(`California County`) %>%
   summarize(sum_pop = sum(`Total Population`),
@@ -87,24 +119,50 @@ enviroscreen_data %>%
        y = "Age Adjusted Rate of ED Visits Due to Asthma")+
   geom_smooth(method = lm) +
   scale_size_continuous(name = "County Population Size")
-
   
 ```
+
 ```{r statistical-analysis-of-pm25-and-asthma}
 #im going to see if there is a significant relationship between PM2.5 
 #concentration and rate of asthma related ED visits
 
-summarized_county_data <- enviroscreen_data %>%
+#linear regression fit for mean pm2.5 and mean asthma ed visit rates
+summarized_pm25_data <- enviroscreen_data %>%
   group_by(`California County`) %>%
   summarize(sum_pop = sum(`Total Population`),
             mean_pm25 = mean(PM2.5, na.rm = TRUE),
             mean_asthma = mean(Asthma, na.rm = TRUE))
 
-summary(lm(mean_asthma ~ mean_pm25, data = summarized_county_data)) %>%
+#statistical test
+summary(lm(mean_asthma ~ mean_pm25, data = summarized_pm25_data)) %>%
   broom::tidy() %>%
   knitr::kable(digits = 3)
         
 ```
+
+```{r enviroscreen-map}
+#since the enviroscreen gives me latitude and longitude, i can make a 
+#map that compares the pm2.5 pollution and asthma ed visit rate in the cesus 
+#tracts
+#filter data from one county
+city_data <- filter(enviroscreen_data, `California County` == "San Francisco") 
+#load map
+cal_map <- get_map("San Francisco, califoria", zoom = 12)
+#plot diesel PM and Asthma
+ggmap(cal_map) +
+  geom_point(aes(x = Longitude, 
+                 y = Latitude, 
+                 color = `Diesel PM`,
+                 size = Asthma),
+             data = city_data) +
+  ggtitle("Diesel Fuel Use and Asthma in San Francisco") +
+  labs(x = "Longitude",
+       y = "Latitude")
+
+
+```
+
+
 
 # Discussion
 
