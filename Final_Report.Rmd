@@ -1,5 +1,5 @@
 ---
-title: "Assessment of Hazardous Air Pollution in San Francisco Neighborhoods: Identifying Major Sources"
+title: "Investigating the Relationship Between Asthma and Pollution Burden in California: Understanding Race and Poverty as Social Determinants of Health"
 author: "Maggie Walsh"
 date: "March 2, 2020"
 bibliography: references.bib
@@ -57,16 +57,24 @@ census_api_key("f26cc4781be4aec1551e0b17e1f052214e3f5256")
 #https://data.ca.gov/dataset/calenviroscreen-3-0-results
 enviroscreen_data <- read_csv(
   "data/raw_data/calenviroscreen-3.0-results-june-2018-update.csv")
-#https://arb.ca.gov/emfac/2014
-marin_county_traffic_data <- read_csv(
-  "data/raw_data/marin_county_traffic_data.csv")
-kings_county_traffic_data <- read_csv(
-  "data/raw_data/kings_county_traffic_data.csv")
+asthma_rates <- read_csv(
+  "data/raw_data/asthma-emergency-department-visit-rates-by-county.csv")
 ```
 
 
-```{r organize data}
-#Look at relationship between asthma rates and traffic density
+```{r pollution-and-asthma}
+#Look at relationship between asthma rates and mean pollution burden scores in
+#california counties
+#cal enviroscreen: "Pollution Burden scores for each census tract are derived 
+#from the average percentiles of
+#the seven Exposures indicators (ozone and PM2.5 concentrations, diesel PM 
+#emissions,
+#drinking water contaminants, pesticide use, toxic releases from facilities, and 
+#traffic density)
+#and the five Environmental Effects indicators 
+#(cleanup sites, impaired water bodies,groundwater threats, 
+#hazardous waste facilities and generators, and solid waste sites and
+#facilities)." 
 enviroscreen_data%>%
   group_by(`California County`) %>%
   summarize(mean_pollution = mean(`Pollution Burden Score`, na.rm = TRUE),
@@ -79,7 +87,7 @@ enviroscreen_data%>%
   ggtitle("Relatioship Between Pollution Burden and Asthma Related ED Visits", 
          "In California Counties") +
   labs(x = 
-         "Mean Pollution Burden Score given to California Census Tracts (By County)", 
+         "Mean Pollution Burden Score (By County)", 
        y = "Mean Rate (per 10,000) of ED Visits Due to Asthma") +
   geom_smooth(method = lm) 
 ```
@@ -145,7 +153,9 @@ summary(lm(mean_asthma ~ mean_pm25, data = summarized_pm25_data)) %>%
 #map that compares the pm2.5 pollution and asthma ed visit rate in the cesus 
 #tracts
 #filter data from one county
-city_data <- filter(enviroscreen_data, `California County` == "San Francisco") 
+city_data <- filter(enviroscreen_data,
+                    `California County` == "San Francisco", 
+                    `Census Tract` != "6075017902")
 #load map
 cal_map <- get_map("San Francisco, califoria", zoom = 12)
 #plot diesel PM and Asthma
@@ -162,9 +172,64 @@ ggmap(cal_map) +
 
 ```
 
+```{r regression-analysis-asthma-diesel}
+#use regression analysis to see statistical signifigance of the correlation 
+#shown in the figure
+summary(lm(`Diesel PM` ~ Asthma, data = city_data)) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 4)
+```
+
+
+```{r poverty-map}
+#can i compare asthma and poverty in san francisco?
+city_data <- filter(enviroscreen_data, `California County` == "San Francisco", 
+                    `Census Tract` != "6075017902") 
+#load map
+cal_map <- get_map("San Francisco, califoria", zoom = 12)
+#plot diesel PM and Asthma
+ggmap(cal_map) +
+  geom_point(aes(x = Longitude, 
+                 y = Latitude, 
+                 color = Poverty,
+                 size = Asthma),
+             data = city_data) +
+  ggtitle("Poverty and Asthma in San Francisco") +
+  labs(x = "Longitude",
+       y = "Latitude")
+```
+
+```{r regression-analysis-asthma-poverty}
+#like before, do the same regression analysis except with poverty as the
+#independent variable
+summary(lm(Poverty ~ Asthma, data = city_data)) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 3)
+```
+
+```{r race-asthma-breakdown}
+#i would like to observe the relationship between race and asthma in all of the california counties
+#summarise data
+asthma_summary <- asthma_rates %>%
+  filter(STRATA == "Race/ethnicity", `AGE GROUP` == "All ages", YEAR == "2017") %>%
+  group_by(`STRATA NAME`) %>%
+  summarise(mean_asthma_rate = mean(`AGE-ADJUSTED ED VISIT RATE`, 
+                            na.rm = TRUE)) %>%
+  arrange(desc(mean_asthma_rate))
+View(asthma_summary)
+#plot graph
+ggplot(data = asthma_summary, aes(x = `STRATA NAME`, y = mean_asthma_rate)) +
+  geom_col(fill = "cornflowerblue") +
+  ggtitle(
+    "Emergency Department Visit Rates by Race", 
+    "Across California Counties") +
+  labs(x = "Race/Ethnicity", y = "Mean Asthma Rate (Age Adjusted)")
+```
+
 
 
 # Discussion
+
 
 # Sources Cited
 
