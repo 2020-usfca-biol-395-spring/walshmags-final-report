@@ -1,5 +1,5 @@
 ---
-title: "Investigating the Relationship Between Asthma and Pollution Burden in California: Understanding Race and Poverty as Social Determinants of Health"
+title: "Investigating the Relationship Between Asthma and Pollution Burden in California to Understand the Role of Race and Economic Status as Social Determinants of Health"
 author: "Maggie Walsh"
 date: "March 2, 2020"
 bibliography: references.bib
@@ -38,6 +38,12 @@ Add text here.
 
 Add a number of code chunks in the Results section. These should read in, subset and plot the data as needed (no need to save any figures to pdf, since they will be put into the rendered document when you click 'knit'), and, for any hypotheses that you want to test, an appropriate statistical test. 
 
+
+
+# Discussion
+
+
+# Figures
 ```{r load-packages}
 # If you add any additional packages here, make sure they are
 # also listed in the DESCRIPTION file
@@ -50,7 +56,6 @@ library("ggmap")
 
 #tidycensus API key
 census_api_key("f26cc4781be4aec1551e0b17e1f052214e3f5256")
-
 ```
 
 ```{r read-in-data}
@@ -60,52 +65,49 @@ enviroscreen_data <- read_csv(
 asthma_rates <- read_csv(
   "data/raw_data/asthma-emergency-department-visit-rates-by-county.csv")
 ```
-
-
-```{r pollution-and-asthma}
-#Look at relationship between asthma rates and mean pollution burden scores in
-#california counties
-#cal enviroscreen: "Pollution Burden scores for each census tract are derived 
+```{r pollution-and-asthma, message=TRUE, warning=TRUE}
+#Look at relationship between asthma rates and mean
+#pollution burden scores in california counties
+#cal enviroscreen: "Pollution Burden scores for each census tract are derived
 #from the average percentiles of
-#the seven Exposures indicators (ozone and PM2.5 concentrations, diesel PM 
-#emissions,
-#drinking water contaminants, pesticide use, toxic releases from facilities, and 
-#traffic density)
-#and the five Environmental Effects indicators 
-#(cleanup sites, impaired water bodies,groundwater threats, 
-#hazardous waste facilities and generators, and solid waste sites and
-#facilities)." 
-enviroscreen_data%>%
+#the seven Exposures indicators (ozone and PM2.5 concentrations,
+#diesel PM emissions, drinking water contaminants, pesticide use, toxic
+#releases from facilities, and traffic density) and the five Environmental
+#Effects indicators (cleanup sites, impaired water bodies,groundwater
+#threats, hazardous waste facilities and generators, and solid waste sites
+#and facilities)."
+enviroscreen_data %>%
   group_by(`California County`) %>%
   summarize(mean_pollution = mean(`Pollution Burden Score`, na.rm = TRUE),
-            mean_asthma_rate = mean(Asthma, na.rm = TRUE), 
-            sum_population = sum(`Total Population`))%>%
-  ggplot(aes(x = mean_pollution, 
-             y = mean_asthma_rate, 
+            mean_asthma_rate = mean(Asthma, na.rm = TRUE),
+            sum_population = sum(`Total Population`)) %>%
+  ggplot(aes(x = mean_pollution,
+             y = mean_asthma_rate,
              size = sum_population)) +
   geom_point() +
-  ggtitle("Relatioship Between Pollution Burden and Asthma Related ED Visits", 
+  ggtitle("Relatioship Between Pollution Burden and Asthma Related ED Visits",
          "In California Counties") +
-  labs(x = 
-         "Mean Pollution Burden Score (By County)", 
+  labs(x =
+         "Mean Pollution Burden Score (By County)",
        y = "Mean Rate (per 10,000) of ED Visits Due to Asthma") +
-  geom_smooth(method = lm) 
+  geom_smooth(method = lm) +
+  scale_size_continuous(name = "County Population Size")
 ```
 
 ```{r statisitcal-analysis-of-pollution-plot}
-#Im going to figure out whether this relationship is statistically significant
+#Im going to figure out whether this relationship is statistically
+#significant
 #linear regression fit for pollution burden score and asthma
 summarized_pollution_data <- enviroscreen_data %>%
     group_by(`California County`) %>%
-  summarize(sum_population = sum(`Total Population`), 
+  summarize(sum_population = sum(`Total Population`),
             mean_pollution = mean(`Pollution Burden Score`, na.rm = TRUE),
             mean_asthma_rate = mean(Asthma, na.rm = TRUE))
-            
 #statistical test
-summary(lm(mean_asthma_rate ~ mean_pollution, 
+summary(lm(mean_asthma_rate ~ mean_pollution,
            data = summarized_pollution_data)) %>%
   broom::tidy() %>%
-  knitr::kable(digits = 3)  
+  knitr::kable(digits = 3)
 ```
 
 ```{r organize-into-plot}
@@ -117,21 +119,20 @@ enviroscreen_data %>%
   summarize(sum_pop = sum(`Total Population`),
             mean_pm25 = mean(PM2.5, na.rm = TRUE),
             mean_asthma = mean(Asthma, na.rm = TRUE)) %>%
-  ggplot(aes(x = mean_pm25, 
-             y = mean_asthma, 
-             size = sum_pop))+
-  geom_point()+
-  ggtitle("Relationship Between PM2.5 Concentration", 
-          "and Asthma in California Counties")+
+  ggplot(aes(x = mean_pm25,
+             y = mean_asthma,
+             size = sum_pop)) +
+  geom_point() +
+  ggtitle("Relationship Between PM2.5 Concentration",
+          "and Asthma in California Counties") +
   labs(x = "Mean PM2.5 Concentration",
-       y = "Age Adjusted Rate of ED Visits Due to Asthma")+
+       y = "Age Adjusted Rate of ED Visits Due to Asthma") +
   geom_smooth(method = lm) +
   scale_size_continuous(name = "County Population Size")
-  
 ```
 
 ```{r statistical-analysis-of-pm25-and-asthma}
-#im going to see if there is a significant relationship between PM2.5 
+#im going to see if there is a significant relationship between PM2.5
 #concentration and rate of asthma related ED visits
 
 #linear regression fit for mean pm2.5 and mean asthma ed visit rates
@@ -145,35 +146,32 @@ summarized_pm25_data <- enviroscreen_data %>%
 summary(lm(mean_asthma ~ mean_pm25, data = summarized_pm25_data)) %>%
   broom::tidy() %>%
   knitr::kable(digits = 3)
-        
 ```
 
 ```{r enviroscreen-map}
-#since the enviroscreen gives me latitude and longitude, i can make a 
-#map that compares the pm2.5 pollution and asthma ed visit rate in the cesus 
+#since the enviroscreen gives me latitude and longitude, i can make
+#map that compares the pm2.5 pollution and asthma ed visit rate in the cesus
 #tracts
 #filter data from one county
 city_data <- filter(enviroscreen_data,
-                    `California County` == "San Francisco", 
+                    `California County` == "San Francisco",
                     `Census Tract` != "6075017902")
 #load map
 cal_map <- get_map("San Francisco, califoria", zoom = 12)
 #plot diesel PM and Asthma
 ggmap(cal_map) +
-  geom_point(aes(x = Longitude, 
-                 y = Latitude, 
+  geom_point(aes(x = Longitude,
+                 y = Latitude,
                  color = `Diesel PM`,
                  size = Asthma),
              data = city_data) +
   ggtitle("Diesel Fuel Use and Asthma in San Francisco") +
   labs(x = "Longitude",
        y = "Latitude")
-
-
 ```
 
 ```{r regression-analysis-asthma-diesel}
-#use regression analysis to see statistical signifigance of the correlation 
+#use regression analysis to see statistical signifigance of the correlation
 #shown in the figure
 summary(lm(`Diesel PM` ~ Asthma, data = city_data)) %>%
   broom::tidy() %>%
@@ -183,14 +181,14 @@ summary(lm(`Diesel PM` ~ Asthma, data = city_data)) %>%
 
 ```{r poverty-map}
 #can i compare asthma and poverty in san francisco?
-city_data <- filter(enviroscreen_data, `California County` == "San Francisco", 
-                    `Census Tract` != "6075017902") 
+city_data <- filter(enviroscreen_data, `California County` == "San Francisco",
+                    `Census Tract` != "6075017902")
 #load map
 cal_map <- get_map("San Francisco, califoria", zoom = 12)
 #plot diesel PM and Asthma
 ggmap(cal_map) +
-  geom_point(aes(x = Longitude, 
-                 y = Latitude, 
+  geom_point(aes(x = Longitude,
+                 y = Latitude,
                  color = Poverty,
                  size = Asthma),
              data = city_data) +
@@ -208,12 +206,15 @@ summary(lm(Poverty ~ Asthma, data = city_data)) %>%
 ```
 
 ```{r race-asthma-breakdown}
-#i would like to observe the relationship between race and asthma in all of the california counties
+#i would like to observe the relationship between race and asthma in all of the
+#california counties
 #summarise data
 asthma_summary <- asthma_rates %>%
-  filter(STRATA == "Race/ethnicity", `AGE GROUP` == "All ages", YEAR == "2017") %>%
+  filter(STRATA == "Race/ethnicity",
+         `AGE GROUP` == "All ages",
+         YEAR == "2017") %>%
   group_by(`STRATA NAME`) %>%
-  summarise(mean_asthma_rate = mean(`AGE-ADJUSTED ED VISIT RATE`, 
+  summarise(mean_asthma_rate = mean(`AGE-ADJUSTED ED VISIT RATE`,
                             na.rm = TRUE)) %>%
   arrange(desc(mean_asthma_rate))
 View(asthma_summary)
@@ -221,15 +222,10 @@ View(asthma_summary)
 ggplot(data = asthma_summary, aes(x = `STRATA NAME`, y = mean_asthma_rate)) +
   geom_col(fill = "cornflowerblue") +
   ggtitle(
-    "Emergency Department Visit Rates by Race", 
+    "Emergency Department Visit Rates by Race",
     "Across California Counties") +
   labs(x = "Race/Ethnicity", y = "Mean Asthma Rate (Age Adjusted)")
 ```
-
-
-
-# Discussion
-
 
 # Sources Cited
 
