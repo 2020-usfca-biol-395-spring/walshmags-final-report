@@ -16,13 +16,13 @@ knitr::opts_chunk$set(
 
 Air pollution has become an increasingly important topic of research in the past half-century, mainly because of the multitude of health risks that have been shown to accompany exposure to air pollution such as respiratory disease, cardiovascular disease, and even neurological dysfunction [@brunekreef2002air; @rajagopalan2018air; @schikowski2020role]. Air pollution consists of a multitude of substances from a multitude of sources. Air pollution arises from fuel burning for energy and transportation, and as a product of other industrial processes. Pollution from mobile sources such as motor traffic has been cited as one of the most prevalent sources of harmful air pollution, especially in cities, where a vast population uses cars to commute into and out of dense urban areas daily [@mayer1999air].
 
-Asthma is a respiratory disease that has been linked to air pollution in numerous studies worldwide [@koenig1999air; @raji2020acute]. Air pollution has been noted to create a range of different symptomatic changes in individuals with asthma, including decrease in pulmonary function and increased sensitivity and inflammation of airways. Exacerbation of asthma often leads to an increase in emergency department visits and hospital emissions, which can coincide with increased outdoor concentrations of air pollutants [@koenig1999air]. There are studies that look specifically at the impact of air pollution from mobile sources on the development and worsening of asthma [@gasana2012motor; @ristovski2012respiratory]. These studies investigate a number of different components of motor traffic pollution which contribute to asthma including particulate matter. Particulate matter less than 2.5 micrometers in diameter, known as fine particulate matter, can have a hazardous effect because it is small enough to be inhaled into small airways and alveoli (small air sacs) in the lung [@guarnieri2014outdoor]. These fine particles consist of transition metals and other substances that can cause the symptoms associated with asthma attacks [@guarnieri2014outdoor]. Diesel particulate matter (particulate pollution produced by diesel fuel-burning vehicles), has also been shown to cause respiratory problems [@ristovski2012respiratory]. These pollutants, which emerge from cars on major roadways in dangerous concentrations, can have these effects up to 500 meters away [@guarnieri2014outdoor]. For reference, that is the distance covered by five and a half football fields. In North American cities, 30-45% of people live within this distance of a major roadway [@guarnieri2014outdoor].
+Asthma is a respiratory disease that has been linked to air pollution in numerous studies worldwide [@koenig1999air; @raji2020acute]. Air pollution has been noted to create a range of different symptomatic changes in individuals with asthma, including decrease in pulmonary function and increased sensitivity and inflammation of airways. Exacerbation of asthma often leads to an increase in emergency department visits and hospital emissions, which can coincide with increased outdoor concentrations of air pollutants [@koenig1999air]. There are studies that look specifically at the impact of air pollution from mobile sources on the development and worsening of asthma [@gasana2012motor; @ristovski2012respiratory]. These studies investigate a number of different components of motor traffic pollution which contribute to asthma including particulate matter. Particulate matter less than 2.5 micrometers in diameter, known as fine particulate matter, can have a hazardous effect because it is small enough to be inhaled into small airways and the alveoli (small air sacs) of the lung [@guarnieri2014outdoor]. These fine particles consist of transition metals and other substances that can cause the symptoms associated with asthma attacks [@guarnieri2014outdoor]. Diesel particulate matter (particulate pollution produced by diesel fuel-burning vehicles), has also been shown to cause respiratory problems [@ristovski2012respiratory]. These pollutants, which emerge from cars on major roadways in dangerous concentrations, can have these effects up to 500 meters away [@guarnieri2014outdoor]. For reference, that is the distance covered by five and a half football fields. In North American cities, 30-45% of people live within this distance of a major roadway [@guarnieri2014outdoor].
 
 Air pollution from motor traffic has a particularly pronounced impact in the state of California. In the American Lung Association's State of the Air Report for 2019, 6 out of 10 of the countries most polluted cities for year round particle pollution were California cities. California came to rely heavily on car commuting because of the development of California cities and surrounding infrastructure in a way that prioritized travel by motor vehicles [@cervero2003growing]. The problem is currently worsening because rapidly growing urban areas in Southern California and the Bay Area promise new jobs, but no affordable housing opportunities [@cervero2003growing].Because of the disparity between job opportunities and affordable housing, Californians are forced to drive long distances to work and thereby increase the mobile source pollution in these metropolitan areas. This may contribute to the placement of the Los Angeles and San Jose/San Francisco metropolitan areas on the top ten list for most particle polluted cities.
 
-The problem of air pollution and asthma does not impact all Californians equally. Differences in race and socioeconomic status has been shown to relate to how much particle pollution from motor traffic one is exposed to [@houston2004structural; @houston2014disparities]. Race and socioeconomic status, as they relate to potential health impacts, have come to be known as social determinants of health [@marmot2005social]. These social determinants of health reflect how racism and class-ism extend beyond individual viewpoints, into the fabric of our society. The concept of environmental justice is a term which has come to be embraced by researchers, who have found evenence that more ecological harm has been felt by historically marginalized communities due to a common trend known as NIMBY-ism (Not In My Back Yard), where dominant social groups delegate the industries and infrastructure that is most hazarous to human health away from their living spaces and into the living spaces of opressed groups, like African Americans [@mcgurty1997nimby, @downey2008race]. If the dominant social group is wealthy and white, then being of a different race or having a different economic status may damage the health of some individuals, especially those with pre-existing conditions like asthma. This is why these markers like race and class have become known as social determinants of health.
+The problem of air pollution and asthma does not impact all Californians equally. Differences in race and socioeconomic status has been shown to relate to how much particle pollution from motor traffic one is exposed to [@houston2004structural; @houston2014disparities]. Race and socioeconomic status, as they relate to potential health impacts, have come to be known as social determinants of health [@marmot2005social]. These social determinants of health reflect how racism and class-ism extend beyond individual viewpoints, into the fabric of our society. The concept of environmental justice is a term which has come to be embraced by researchers who have found evenence that more ecological harm has been felt by historically marginalized communities due to a common trend known as NIMBY-ism (Not In My Back Yard), where dominant social groups delegate the industries and infrastructure that is most hazarous to human health away from their living spaces and into the living spaces of opressed groups, like African Americans [@mcgurty1997nimby, @downey2008race]. If the dominant social group is wealthy and white, then being of a different race or having a different economic status may damage the health of some individuals, especially those with pre-existing conditions like asthma. This is why these markers like race and class have become known as social determinants of health.
 
-In this study, I aimed to find out if there was a relationship between asthma and pollution in California Counties. I used asthma emergency department visit rates and pollution data provided by the California Enviroscreen. I also questioned the relationship between poverty, particulate matter pollution, and asthma in San Francisco. I chose to focus on San Francisco because in California, much of the focus on the health impact of traffic pollution, as well as the evidence provided regarding the implications of social determinants of health, have been based on studies conducted in Southern California [@houston2004structural; @houston2014disparities; @perez2009global]. Due to the impacts on the housing market from booming tech industries such as those that reside in Silicon Valley, San Francisco and the surrounding cities of the bay area face severe problems with job demand and a lack of affordable housing [@cervero1999tracking; @cervero2003growing]. The body of research discussed above led me to hypothesize that there would be a relationship between pollution, including particulate matter, and asthma emergency department visit rates in California. Research also led me to hypothesize that a good amount of the impacts felt by people suffering from asthma was due to the pollution produced by motor vehicles. An understanding of social determinants of health suggests that those in poverty or in racial minority would also be more vulnerable to asthma flare ups since they are more likely to live in the densely polluted areas near these roadways.
+In this study, I aimed to find out if there was a relationship between asthma and pollution in California Counties. I used asthma emergency department visit rates and pollution data provided by the California Enviroscreen. I also questioned the relationship between poverty, particulate matter pollution, and asthma in San Francisco. I chose to focus on San Francisco because in California, much of the focus on the health impact of traffic pollution, as well as the evidence provided regarding the implications of social determinants of health, have been based on studies conducted in Southern California [@houston2004structural; @houston2014disparities; @perez2009global]. Due to the impacts on the housing market from booming tech industries such as those that reside in Silicon Valley, San Francisco and the surrounding cities of the bay area face severe problems with job demand and a lack of affordable housing [@cervero1999tracking; @cervero2003growing]. The body of research discussed above led me to hypothesize that there would be a relationship between pollution, including particulate matter, and asthma emergency department visit rates in California. Existing research also led me to hypothesize that a good amount of the impacts felt by people suffering from asthma was due to the pollution produced by motor vehicles. An understanding of environmental juastice and social determinants of health suggests that those in poverty or in racial minority would also be more vulnerable to asthma flare ups since they are more likely to live in the densely polluted areas near these roadways.
 
 Through analysis of the data, I found that there was indeed a relationship between pollution, especially fine particulate pollution, and asthma emergency department visit rates in California counties. I also found a strong relationship between Particulate matter from diesel vehicles and asthma in San Francisco. There is evidence that these same neighborhoods with higher diesel particulate matter and higher asthma rates also had higher poverty. I identified a strong relationship between asthma and poverty in the San Francisco region. With a consideration of race as a social determinant of health, I used data from the California Department of Public Health to investigate the relationship between asthma emergency department visit rates and race in California. This inquiry revealed a striking increase in asthma emergency department visits in black Californians state wide.
 
@@ -31,7 +31,7 @@ Through analysis of the data, I found that there was indeed a relationship betwe
 ## Data Sources
 ### California Enviroscreen
 
-Data was taken from the California Office of Environmental Health Hazard Assessment Website (Enviroscreen) and the California Department of Public Health Website (asthma emergency department visits by county) Data from the California Enviroscreen were used in the analysis. The California Enviroscreen is a comprehensive data set collecting data from each California census tract regarding different indicators calculated using data from a variety of sources. I used several of these indicators in my analysis.
+Data was taken from the California Office of Environmental Health Hazard Assessment Website. Data from the California Enviroscreen were used in the analysis. The California Enviroscreen is a comprehensive data set collecting data from each California census tract regarding different indicators calculated using data from a variety of sources. I used several of these indicators in my analysis.
 
 One indicator was from a group of "sensitive population indicators", revealing populations of individuals with certain biological traits which make them especially vulnerable to the impacts of pollution. Asthma is an indicator of sensitivity to air pollution. The age adjusted rates of emergency department visits due to asthma were given for each California census tract to indicate the presence of such sensitive populations. Each emergency department visit to hospitals licensed by California is required to be reported to the California Office of Environmental Health Hazard Assessment. This report includes the principal diagnosis, which was used in this data set to calculate the average rates of asthma visits per 10,000 residents between the years of 2011 and 2013 [@faust_august_bangia_galaviz_leichty_prasad_schmitz_slocombe_welling_wieland_et.al._2017].
 
@@ -49,17 +49,21 @@ The data used in my analysis regarding the racial makeup of individuals visiting
 
 ## Data Analysis and Statistics
 
-The data sets were loaded into R Studio using the package "readr" and analyzed using several packages. Data was organized using "deplyr" and "tidyr", then plotted graphically using "ggplot2" or spatially using "ggmap". Statistical significance of results were determined with regression analysis using a linear model.
+The data sets were loaded into R Studio using the package "readr" and analyzed using several packages. Data was organized using "dplyr" and "tidyr", then plotted graphically using "ggplot2" or spatially using "ggmap". Statistical significance of results were determined with regression analysis using a linear model.
 
 # Results
 
-In my analysis I started by looking at data from all of California to look first at the relationship between overall pollution and asthma. Then I investigated the relationship between asthma and fine particulate matter alone. Next, to isolate the impact of motor vehicles, I took a detailed look at a map of census tracts in San Francisco to see where diesel particulate matter was the worst, and compared that to asthma. Looking into social determinants of health, I mapped asthma rates compared to poverty rates in San Francisco. I then looked back to California as a whole to see the asthma rates of different racial categories. 
+In my analysis, I aimed to first reproduce a relationship between fine particulate matter pollution and respiratory health that has been found in other studies. I compared asthma emergency department visit rates to overall pollution and particle pollution in California, as well as diesel particulate matter emissions in San Francisco. My results showed the relationship between asthma and pollution, especially in particulate matter in the state and diesel particualte matter in the urban area of San Fancisco. Next, I aimed to discover a possible connection between poor respiratory health (again shown in asthma emergency departmemt visit rates) and social determinants of health like race and socioeconomic status. I found a relationship between asthma and poverty and a sharp increase in athma emergency department rates among black Californians.
 
-After analyzing the relationship between pollution burden and asthma emergency department visit rate of each California county, I found a positive relationship between the two (Figure 1; p =.021).
-When analyzing the relationship between just fine particulate matter and asthma emergency department visit rates I found another positive relationship (Figure 2; p = 8.2e-06).
-When I analyzed the relationship between asthma emergency department visit rates and kilograms of diesel particulate matter released in one summer day in San Francisco I found a significant relationship between the two (Figure 3; p = 5e-05).
-After analyzing the possibility of  a relationship between asthma emergency department visit rates and poverty in San Francisco I found a statistically significant relationship (Figure 4; p = 6.4e-08).
-I analyzed the racial aspect of asthma bu calculating the mean asthma emergency department visit rate for each given racial category in the different California census tracts for the year 2015 (Table 1). The asthma emergency department visit rate for black Californians is higher than all the other given racial categories (Figure 5).
+I started by looking at data from all of California to look first at the relationship between overall pollution and asthma. After analyzing the relationship between the pollution burden score and asthma emergency department visit rate of each California county, I found a positive relationship between the two (Figure 1; p =.021).
+
+I also investigated the relationship between asthma and fine particulate matter alone. When analyzing the relationship between just fine particulate matter and asthma emergency department visit rates I found another positive relationship (Figure 2; p = 8.2e-06).
+
+Next, I took a detailed look at a map of census tracts in San Francisco to see where diesel particulate matter was the worst, and compared that to asthma. When I analyzed the relationship between asthma emergency department visit rates and kilograms of diesel particulate matter released in one summer day in San Francisco I found a significant relationship between the two (Figure 3; p = 5e-05). Diesel particulate matter was shown to be emitted in the highest concentrations on the east side of San Francsico, closest to the San Francisco Bay (Figure 3).
+
+Looking into social determinants of health, I mapped asthma rates compared to poverty rates in San Francisco. After analyzing the possibility of  a relationship between asthma emergency department visit rates and poverty in San Francisco I found a statistically significant relationship (Figure 4; p = 6.4e-08). Poverty was the worst in two areas of San Francsico, sections of downtown and Southeast San Francisco.
+
+I then looked back to California as a whole to see the asthma rates of different racial categories. I analyzed the racial aspect of asthma bu calculating the mean asthma emergency department visit rate for each given racial category in the different California census tracts for the year 2015 (Table 1). The asthma emergency department visit rate for black Californians is much higher than all the other given racial categories (Figure 5) It is about three times higher than white Californians and nine times higher than Asian/Pacific Islander Californans (Table 1).
 
 # Discussion
 
@@ -120,17 +124,17 @@ enviroscreen_data %>%
              y = mean_asthma_rate,
              size = sum_population)) +
   geom_point() +
-  ggtitle("Relationship Between Pollution Burden and Asthma Related ED Visits",
+  ggtitle("Relationship Between Pollution Burden and\nAsthma Related ED Visits",
          "In California Counties") +
   labs(x =
          "Mean Pollution Burden Score (By County)",
-       y = "Mean Rate (per 10,000) of ED Visits Due to Asthma") +
+       y = "Mean Rate of ED Visits Due to Asthma") +
   geom_smooth(method = lm) +
   scale_size_continuous(name = "County Population Size")
 ```
 
 ## Figure 1 ##
-Plot shows California counties plotted by Pollution burden score and mean rate of emergency department visits per 10,000 residents. Size of dot represents population size. Shows that counties with a higher pollution score tend to have a higher asthma emergency department rate (p = .021)
+Plot shows California counties plotted by Pollution burden score and mean rate of emergency department visits per 10,000 residents. Size of dot represents population size. Shows that counties with a higher pollution score tend to have a higher asthma emergency department rate (p = 0.021)
 
 ```{r statisitcal-analysis-of-pollution-plot, include=FALSE}
 #Im going to figure out whether this relationship is statistically
@@ -164,13 +168,13 @@ enviroscreen_data %>%
   ggtitle("Relationship Between PM2.5 Concentration",
           "and Asthma in California Counties") +
   labs(x = "Mean PM2.5 Concentration",
-       y = "Age Adjusted Rate of ED Visits Due to Asthma") +
+       y = "Mean Rate of ED Visits Due to Asthma") +
   geom_smooth(method = lm) +
   scale_size_continuous(name = "County Population Size")
 ```
 
 ## Figure 2
-Plot of asthma emergency department visit rates and mean fine particulate matter (PM 2.5) concentration.Size of dot represents population size. Shows that higher concentrations of fine particulate matter in counties with higher rates of emergency department visits due to asthma (p = 8.2e-6)
+Plot of asthma emergency department visit rates and mean fine particulate matter (PM 2.5) concentration.Size of dot represents population size. Shows that higher concentrations of fine particulate matter in counties with higher rates of emergency department visits due to asthma (p < 0.0001)
 
 ```{r statistical-analysis-of-pm25-and-asthma, include=FALSE}
 #im going to see if there is a significant relationship between PM2.5
@@ -207,7 +211,7 @@ ggmap(sf_map) +
                  y = Latitude,
                  color = `Diesel PM`,
                  size = Asthma),
-             alpha = 0.5,
+             alpha = 0.7,
              data = city_data) +
   scale_color_viridis_c() +
   ggtitle("Diesel PM Emissions and Asthma in San Francisco") +
@@ -216,7 +220,7 @@ ggmap(sf_map) +
 ```
 
 ## Figure 3
-Spatial map of census tracts in San Francisco county. Size of dots represents annual asthma emergency department rates per 10,000 residents. Color represents kilograms of diesel particulate matter emitted in census tract throughout the course of one 2012 July weekday. Diesel PM emissions includes on road sources (trucks, cars) and off road sources (heavy duty equipment, ships). The map shows the highest levels of diesel PM emissions in the Northeastern area of San Francisco. The worst asthma rates, however, seem to come from Southeast San Francisco. Still, there is a statistically significant relationship between the two factors (p = 5e-05).
+Spatial map of census tracts in San Francisco county. Size of dots represents annual asthma emergency department rates per 10,000 residents. Color represents kilograms of diesel PM (particulate matter) emitted in census tract throughout the course of one 2012 July weekday. Diesel PM emissions includes on road sources (trucks, cars) and off road sources (heavy duty equipment, ships). The map shows the highest levels of diesel PM emissions in the Northeastern area of San Francisco. The worst asthma rates, however, seem to come from Southeast San Francisco. Still, there is a statistically significant relationship between the two factors (p < 0.0001).
 
 ```{r regression-analysis-asthma-diesel, include=FALSE}
 #use regression analysis to see statistical signifigance of the correlation
@@ -225,7 +229,6 @@ summary(lm(Asthma ~ `Diesel PM`, data = city_data)) %>%
   broom::tidy() %>%
   knitr::kable(digits = 5)
 ```
-
 
 ```{r poverty-map}
 #can i compare asthma and poverty in san francisco?
@@ -237,14 +240,16 @@ ggmap(sf_map) +
                  y = Latitude,
                  color = Poverty,
                  size = Asthma),
+             alpha = 0.7,
              data = city_data) +
   scale_color_viridis_c() +
   ggtitle("Poverty and Asthma in San Francisco") +
   labs(x = "Longitude",
        y = "Latitude")
 ```
+
 ## Figure 4
-A map plotting census tracts in the county of San Francisco comparing estimated percent poverty and rates of emergency department visits due to asthma. The gray dot (upper right corner) indicates insufficient data to calculate estimate of percent poverty. This map shows with statistical significance that areas with the worst poverty levels also seem to have populations suffering the most from asthma (p=6.4e-8). 
+A map plotting census tracts in the county of San Francisco comparing estimated percent poverty and rates of emergency department visits due to asthma. The gray dot (upper right corner) indicates insufficient data to calculate estimate of percent poverty. This map shows with statistical significance that areas with the worst poverty levels also seem to have populations suffering the most from asthma (p < 0.0001). 
 
 ```{r regression-analysis-asthma-poverty, include=FALSE}
 #like before, do the same regression analysis except with poverty as the
@@ -285,7 +290,7 @@ ggplot(data = asthma_summary,
 ```
 
 ## Figure 5
-Simple bar graph of the difference between asthma emergency department visits for five different racial/ethnic categories.
+Simple bar graph of the difference between asthma emergency department visits for five different racial/ethnic categories. Categories are Black, White, American Indian/Alaskan Native, Hispanic, and Asian/Pacific Islander.
 
 # Sources Cited
 
