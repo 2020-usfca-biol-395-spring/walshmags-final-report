@@ -198,13 +198,16 @@ city_data <- filter(enviroscreen_data,
                     `California County` == "San Francisco",
                     `Census Tract` != "6075017902")
 #load map
-sf_map <- get_map("San Francisco, California", zoom = 12)
+# to load map run this sf_map <- get_map("San Francisco, California", zoom = 12)
+# then run this save(sf_map, file = "data/sf_map.rda")
+load("data/sf_map.rda")
 #plot diesel PM and Asthma
 ggmap(sf_map) +
   geom_point(aes(x = Longitude,
                  y = Latitude,
                  color = `Diesel PM`,
                  size = Asthma),
+             alpha = 0.5,
              data = city_data) +
   scale_color_viridis_c() +
   ggtitle("Diesel PM Emissions and Asthma in San Francisco") +
@@ -223,33 +226,13 @@ summary(lm(Asthma ~ `Diesel PM`, data = city_data)) %>%
   knitr::kable(digits = 5)
 ```
 
-```{r close-up-downtown, include = FALSE}
-#its hard to see the size of the dots downtown so im gonna zoom in on that
-#Find location
-dt <- c(lon = -122.4145, lat = 37.7847)
-dt_map <- get_map(location = dt, zoom = 14)
-#plot diesel PM and Asthma
-ggmap(dt_map) +
-  geom_point(aes(x = Longitude,
-                 y = Latitude,
-                 color = `Diesel PM`,
-                 size = Asthma),
-             data = city_data) +
-  scale_color_viridis_c() +
-  ggtitle("Diesel PM Emissions and Asthma in Downtown San Francisco") +
-  labs(x = "Longitude",
-       y = "Latitude")
-
-```
 
 ```{r poverty-map}
 #can i compare asthma and poverty in san francisco?
 city_data <- filter(enviroscreen_data, `California County` == "San Francisco",
                     `Census Tract` != "6075017902")
-#load map
-cal_map <- get_map("San Francisco, California", zoom = 12)
 #plot poverty and Asthma
-ggmap(cal_map) +
+ggmap(sf_map) +
   geom_point(aes(x = Longitude,
                  y = Latitude,
                  color = Poverty,
@@ -270,25 +253,6 @@ summary(lm(Asthma ~ Poverty, data = city_data)) %>%
   broom::tidy() %>%
   knitr::kable(digits = 9)
 ```
-
-```{r downtown-poverty, include = FALSE}
-#its hard to see the size of the points downtown because they're so close
-#together, so lets zoom in
-dt <- c(lon = -122.4145, lat = 37.7847)
-dt_map <- get_map(location = dt, zoom = 14)
-#plot new map
-ggmap(dt_map) +
-  geom_point(aes(x = Longitude,
-                 y = Latitude,
-                 color = Poverty,
-                 size = Asthma),
-             data = city_data) +
-  scale_color_viridis_c() +
-  ggtitle("Poverty and Asthma in Downtown San Francisco") +
-  labs(x = "Longitude",
-       y = "Latitude")
-```
-
 
 ## Table 1: Asthma ED Visits By Race
 A table showing the mean emergency department visit rate across the different California census tracts grouped by racial/ethnic categories: Black, White, American Indian/Alaskan Native, Hispanic, and Asian/Pacific Islander. 
