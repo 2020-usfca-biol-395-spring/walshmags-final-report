@@ -187,9 +187,9 @@ summarized_pm25_data <- enviroscreen_data %>%
             mean_pm25 = mean(PM2.5, na.rm = TRUE),
             mean_asthma = mean(Asthma, na.rm = TRUE))
 #linear model
-PM_asthma <- (lm(mean_asthma ~ mean_pm25, data = summarized_pm25_data))
+pm_asthma <- (lm(mean_asthma ~ mean_pm25, data = summarized_pm25_data))
 #summary
-summary(PM_asthma)
+summary(pm_asthma)
 ```
 
 ```{r diesel-asthma-map}
